@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ZEROX MODS App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&amp;family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B78E6;
+            --dark: #7966D2;
+            --light: #A596ED;
+            --faint: #E8E5FA;
+            --bg-main: #FAFAFA;
+            --profile-bg: #FFFFFF;
+            --item-bg: #F7F7F9;
+            --header-text: #FFFFFF;
+            --header-sub: rgba(255, 255, 255, 0.9);
+            --icon-stroke: #FFFFFF;
+            --nav-fill-color: var(--primary);
+            --nav-stroke-color: #FFFFFF;
+            --wingo-active-bg: #D4C8FF;
+            --wingo-inactive-bg: #F4F4F5;
+            --server-btn-bg: #D4D4D8;
+            --status-box-bg: #F5F3FF;
+            --status-val-color: var(--primary);
+            --pred-pending-grad: linear-gradient(135deg, #D4C8FF 0%, #B6A4FF 100%);
+            --pred-pending-text: #FFFFFF;
+            --pred-number-bg: #C4B5FD;
+            --pred-number-text: #FFFFFF;
+            --device-box-text: var(--primary);
+            --bg-gray: #F8F9FA;
+            --text-dark: #1A1A1A;
+            --text-light: #FFFFFF;
+            --cyan: #00B4D8;
+        }
+
+        [data-theme="green"] {
+            --primary: #C3EE2B;
+            --dark: #A5D11A;
+            --light: #C3EE2B;
+            --faint: #C3EE2B;
+            --bg-main: #EAF0DC;
+            --profile-bg: #EAF0DC;
+            --item-bg: #FFFFFF;
+            --header-text: #1A1A1A;
+            --header-sub: #4A4A4A;
+            --icon-stroke: #1A1A1A;
+            --nav-fill-color: var(--primary);
+            --nav-stroke-color: #1A1A1A;
+            --wingo-active-bg: #C3EE2B;
+            --wingo-inactive-bg: #FFFFFF;
+            --server-btn-bg: #D4D4D8;
+            --status-box-bg: #E0EABF;
+            --status-val-color: #1A1A1A;
+            --pred-pending-grad: linear-gradient(135deg, #DFF782 0%, #C3EE2B 100%);
+            --pred-pending-text: #1A1A1A;
+            --pred-number-bg: #C3EE2B;
+            --pred-number-text: #1A1A1A;
+            --device-box-text: #1A1A1A;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #1a1a2e;
+            --profile-bg: #16213e;
+            --item-bg: #0f3460;
+            --text-dark: #e0e0e0;
+            --header-text: #ffffff;
+            --header-sub: #aaaaaa;
+            --icon-stroke: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: #FFFFFF;
+            height: 100%;
+            height: 100dvh;
+            position: relative;
+            box-shadow: 0 0 25px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 480px) {
+            .app-container {
+                max-width: 100%;
+                border-radius: 0;
+            }
+        }
+
+        #landing-page {
+            position: absolute;
+            inset: 0;
+            z-index: 9999;
+            background: linear-gradient(180deg, #E2D7FF 0%, #FFFFFF 35%);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .landing-image-container {
+            width: 100%;
+            height: 42vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 10px;
+        }
+
+        .landing-image {
+            max-width: 90%;
+            max-height: 100%;
+            object-fit: contain;
+            animation: floatUpDown 4s ease-in-out infinite;
+            filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1));
+        }
+
+        .landing-content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 20px 20px;
+            background: #FFFFFF;
+        }
+
+        .landing-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #000000;
+            text-align: center;
+            line-height: 1.15;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .landing-subtitle {
+            font-size: 11px;
+            font-weight: 500;
+            color: #4B5563;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .landing-cards-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .l-card {
+            flex: 1;
+            border-radius: 14px;
+            padding: 12px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .l-card:active { transform: scale(0.96); }
+
+        .l-card.join {
+            background-color: #F6F1FF;
+            border: 1px solid #D8CCF8;
+        }
+
+        .l-card.support {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .l-card-icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .l-card-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .l-card-text strong {
+            font-size: 12px;
+            font-weight: 800;
+            color: #000000;
+            line-height: 1.1;
+            margin-bottom: 3px;
+        }
+
+        .l-card-text span {
+            font-size: 8.5px;
+            color: #888;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .landing-main-btn {
+            width: 100%;
+            height: 48px;
+            border-radius: 24px;
+            background: linear-gradient(90deg, #A78BFA 0%, #C4B5FD 100%);
+            border: none;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 800;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 18px rgba(167, 139, 250, 0.4);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+        }
+
+        .landing-main-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 10px rgba(167, 139, 250, 0.3);
+        }
+
+        .device-id-display {
+            font-size: 12px;
+            color: #000000;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: auto;
+        }
+
+        .device-id-display span {
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .copy-icon-btn:active {
+            background: rgba(0,0,0,0.1);
+        }
+
+        .landing-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .landing-footer div {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 9px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .anim-fade-up {
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeUpIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        @keyframes fadeUpIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .top-fixed-area {
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .header {
+            background-color: var(--primary);
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.3s;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-circle {
+            width: 38px;
+            height: 38px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            overflow: hidden;
+        }
+
+        .header-text h1 {
+            color: var(--header-text);
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.3px;
+        }
+
+        .header-text p {
+            color: var(--header-sub);
+            font-size: 9px;
+            font-weight: 400;
+            transition: opacity 0.5s ease;
+        }
+
+        #open-info-modal svg path {
+            stroke: var(--icon-stroke);
+            transition: stroke 0.3s;
+        }
+
+        .disclaimer-bar {
+            background-color: var(--dark);
+            color: var(--header-text);
+            font-size: 10px;
+            font-weight: 500;
+            text-align: center;
+            padding: 6px 10px;
+            letter-spacing: 0.3px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        #disclaimer-text {
+            width: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+        }
+
+        .main-content-area {
+            flex-grow: 1;
+            overflow: hidden;
+            background-color: var(--bg-main);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s;
+        }
+
+        .view-section {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        #home-view {
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 30px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #home-view::-webkit-scrollbar {
+            display: none;
+        }
+
+        #games-view.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--profile-bg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            background-color: var(--profile-bg);
+        }
+
+        .error-img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        .error-text {
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        #game-iframe {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
+            display: none;
+        }
+
+        .date-selector {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+            gap: 8px;
+        }
+
+        .date-card {
+            flex: 1;
+            background-color: #EFEFEF;
+            border-radius: 8px;
+            padding: 8px 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .date-card span:nth-child(1) { font-size: 10px; font-weight: 700; color: var(--primary); }
+        .date-card span:nth-child(2) { font-size: 14px; font-weight: 700; color: var(--primary); }
+
+        .date-card.active {
+            background-color: var(--light);
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .date-card.active::before, .date-card.active::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 4px;
+            background-color: var(--header-text);
+            border-radius: 10px;
+        }
+
+        .date-card.active::before { top: -2px; }
+        .date-card.active::after { bottom: -2px; }
+        .date-card.active span { color: var(--header-text); }
+
+        .grid-container {
+            position: relative;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: panGrid 3s linear infinite;
+        }
+
+        @keyframes panGrid { 0% { background-position: 0px 0px; } 100% { background-position: 30px 30px; } }
+
+        .main-number {
+            font-size: 100px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            animation: floatNumber 3s ease-in-out infinite;
+        }
+
+        .days-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--light);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: -10px;
+            animation: floatNumber 3s ease-in-out infinite;
+        }
+
+        @keyframes floatNumber { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        .timer-container { display: flex; justify-content: center; gap: 20px; margin-top: -10px; position: relative; z-index: 2; }
+        .timer-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .timer-circle { width: 65px; height: 65px; border-radius: 50%; background-color: white; box-shadow: 0 8px 25px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; padding: 6px; }
+        .timer-circle-inner { width: 100%; height: 100%; border-radius: 50%; background-color: var(--primary); display: flex; justify-content: center; align-items: center; color: var(--header-text); font-size: 22px; font-weight: 700; }
+        .timer-label { font-size: 12px; font-weight: 700; color: #666; margin-top: 2px; }
+
+        .select-game-section { padding: 16px; margin-top: 5px; }
+        .section-title { font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 12px; }
+        .games-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; }
+        .games-scroll::-webkit-scrollbar { display: none; }
+
+        .game-card {
+            min-width: 110px; background: var(--item-bg); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 2px solid rgba(0,0,0,0.02); cursor: pointer; transition: all 0.2s;
+        }
+        .game-card:active { transform: scale(0.95); }
+        .game-card.selected { border-color: var(--primary); background: var(--faint); transform: scale(0.98); }
+
+        .phone-mockup { width: 65px; height: 130px; border-radius: 12px; border: 3px solid #1c1c1e; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 5px 10px rgba(0,0,0,0.1); background-color: #f0f0f0; }
+        .phone-mockup::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%); pointer-events: none; }
+        .phone-notch { position: absolute; top: 0; width: 45%; height: 8px; background: #1c1c1e; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; z-index: 10; }
+        .game-title { font-size: 11px; font-weight: 600; color: #444; text-align: center; }
+
+        .new-content-section { padding: 0 16px; margin-top: 5px; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .dropdown-box { font-size: 13px; font-weight: 500; color: #333; display: flex; align-items: center; gap: 5px; }
+        .dropdown-icon { font-size: 10px; color: #888; }
+
+        .wingo-grid { display: flex; gap: 10px; justify-content: space-between; }
+        .wingo-item { flex: 1; background: var(--wingo-inactive-bg); border-radius: 12px; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(0,0,0,0.05); }
+        .wingo-item.active { background: var(--wingo-active-bg); transform: scale(1.05); border-color: transparent; }
+        .wingo-clock { width: 28px; height: 28px; border-radius: 50%; background: #E5E5E5; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .wingo-item.active .wingo-clock { background: var(--primary); }
+        .wingo-clock svg { stroke: #888; transition: stroke 0.2s; }
+        .wingo-item.active .wingo-clock svg { stroke: var(--header-text); }
+        .wingo-item span { font-size: 11px; font-weight: 500; color: #888; text-align: center; line-height: 1.2; }
+        .wingo-item.active span { color: var(--header-text); font-weight: 600; }
+
+        .server-scroll-row { display: flex; gap: 10px; margin-bottom: 25px; align-items: center; justify-content: space-between; width: 100%; }
+        .server-btn { width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%; background: var(--server-btn-bg); color: white; font-weight: 800; font-size: 14px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 3px 6px rgba(0,0,0,0.06); }
+        .server-btn.active { background: var(--primary); color: var(--header-text); transform: scale(1.08); border-radius: 0; clip-path: polygon(22% 0%, 78% 0%, 100% 22%, 100% 78%, 78% 100%, 22% 100%, 0% 78%, 0% 22%, 0% 78%, 0% 22%); filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15)); }
+        .server-btn.pill { flex: 1; height: 48px; border-radius: 24px; background: #D1D1D6; color: #FFFFFF; gap: 8px; font-size: 15px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.05); justify-content: center; }
+        .server-btn.pill.active { border-radius: 24px; clip-path: none; transform: scale(1.04); background: var(--primary); color: var(--header-text); }
+        #pro-rexen-btn svg { fill: #FFFFFF; transition: fill 0.3s; }
+        #pro-rexen-btn.active svg { fill: var(--header-text); }
+
+        .status-text { font-size: 12px; color: var(--dark); font-weight: 500; }
+        .status-bar { background: var(--status-box-bg); border-radius: 8px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .status-bar-val { font-size: 16px; color: var(--status-val-color); font-weight: 600; display: flex; align-items: center; gap: 8px; letter-spacing: 0.5px; }
+        .disclaimer-text { font-size: 11px; color: #666; line-height: 1.5; margin-bottom: 25px; }
+
+        .prediction-section { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+        .pred-box { border-radius: 40px; padding: 8px 8px 8px 30px; display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .pred-box.pending { background: var(--item-bg); box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.03); }
+        .pred-box.number { background: var(--pred-number-bg); }
+        .pred-label { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 6px; text-transform: uppercase; }
+        .pred-box.pending .pred-label { color: var(--primary); filter: brightness(0.8); }
+        .pred-box.number .pred-label { color: var(--pred-number-text); }
+        .pred-circle { width: 54px; height: 54px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 800; flex-shrink: 0; transition: all 0.3s ease; }
+        .pred-box.pending .pred-circle { background: var(--pred-pending-grad); color: var(--pred-pending-text); box-shadow: inset 0 2px 5px rgba(255,255,255,0.5); }
+        .pred-box.number .pred-circle { background: var(--item-bg); color: var(--primary); border: 4px solid rgba(0,0,0,0.05); }
+
+        .glass-panel, .history-glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="green"] .glass-panel,
+        [data-theme="green"] .history-glass-panel {
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid var(--primary);
+        }
+
+        .mode-title, .result-title, .history-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .result-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .result-input-glass {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        .result-input-glass:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .verify-glass-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .verify-glass-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .jackpot-banner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 10001;
+            animation: jackpotPop 0.5s ease-out forwards;
+        }
+
+        @keyframes jackpotPop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .jackpot-content {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 30px 50px;
+            border-radius: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            animation: jackpotGlow 1s infinite alternate;
+        }
+
+        @keyframes jackpotGlow {
+            from { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            to { box-shadow: 0 0 60px rgba(255, 215, 0, 0.9); }
+        }
+
+        .jackpot-text {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 3px;
+        }
+
+        .jackpot-icon {
+            font-size: 40px;
+            animation: jackpotSpin 0.5s infinite;
+        }
+
+        @keyframes jackpotSpin {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .clear-history-glass {
+            padding: 6px 12px;
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid #ff3b30;
+            border-radius: 8px;
+            color: #ff3b30;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-history-glass:hover {
+            background: rgba(255, 59, 48, 0.2);
+            transform: scale(1.05);
+        }
+
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 12px;
+            border-left: 4px solid;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .history-item.win {
+            border-left-color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .history-item.loss {
+            border-left-color: #f87171;
+            background: rgba(248, 113, 113, 0.1);
+        }
+
+        .history-prediction, .history-actual {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .history-prediction span, .history-actual span {
+            color: #888;
+            font-size: 10px;
+            margin-right: 5px;
+        }
+
+        .history-status {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 20px;
+        }
+
+        .history-status.win {
+            background: #4ade80;
+            color: white;
+        }
+
+        .history-status.loss {
+            background: #f87171;
+            color: white;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10002;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            animation: toastSlide 0.3s ease;
+            pointer-events: auto;
+            border-left: 4px solid;
+        }
+
+        .toast.success {
+            border-left-color: #4ade80;
+        }
+
+        .toast.error {
+            border-left-color: #f87171;
+        }
+
+        @keyframes toastSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes numberPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); background: var(--primary); color: white; }
+            100% { transform: scale(1); }
+        }
+
+        .number-animate {
+            animation: numberPop 0.3s ease;
+        }
+
+        .dark-mode-glass {
+            background: transparent;
+            border: 1px solid var(--icon-stroke);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .stats-pattern-container { padding: 0 16px; display: flex; flex-direction: column; align-items: center; gap: 24px; margin-top: 10px; margin-bottom: 30px;}
+        .illustration-box { width: 100%; display: flex; justify-content: center; align-items: center; padding: 10px 0 20px; }
+        .pill-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; width: 100%; padding: 0 10px; }
+        .grid-pill { height: 28px; border-radius: 14px; background: rgba(0,0,0,0.05); width: 100%; transition: all 0.3s ease; }
+        .grid-pill.solid { background: linear-gradient(180deg, var(--light) 0%, var(--primary) 100%); box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .abstract-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; width: 100%; padding: 0 10px; }
+        .abstract-icon { width: 45px; height: 45px; position: relative; display: flex; justify-content: center; align-items: center; justify-self: center; }
+        .abstract-icon svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .bs-text { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 800; color: white; line-height: 1; z-index: 2; text-shadow: 0 1px 4px rgba(0,0,0,0.25); }
+        .rings-row { display: flex; justify-content: space-around; width: 100%; padding: 10px 0; gap: 15px; }
+        .hollow-ring { width: 55px; height: 55px; border-radius: 50%; border: 9px solid; mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 90%); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 90%); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .ring-green { border-color: #D1FAE5; } .ring-red { border-color: #FEE2E2; } .ring-gray { border-color: #F3F4F6; } .ring-purple { border-color: #EDE9FE; }
+        .hollow-ring.deep-green { border-color: #10B981; mask-image: none; -webkit-mask-image: none; filter: drop-shadow(0 4px 6px rgba(16,185,129,0.3)); }
+        .hollow-ring.deep-red { border-color: #EF4444; mask-image: none; -webkit-mask-image: none; filter: drop-shadow(0 4px 6px rgba(239,68,68,0.3)); }
+        .hollow-ring.deep-gray { border-color: #9CA3AF; mask-image: none; -webkit-mask-image: none; filter: drop-shadow(0 4px 6px rgba(156,163,175,0.3)); }
+        .hollow-ring.deep-purple { border-color: #8B5CF6; mask-image: none; -webkit-mask-image: none; filter: drop-shadow(0 4px 6px rgba(139,92,246,0.3)); }
+        .stats-dashboard { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        .stats-row-2 { display: flex; gap: 15px; width: 100%; }
+        .stat-card { border-radius: 20px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border: 2px dashed; flex: 1; transition: transform 0.3s ease; }
+        .stat-card span { font-size: 13px; font-weight: 700; }
+        .stat-card strong { font-size: 32px; font-weight: 600; line-height: 1; }
+        .stat-pass { border-color: #A7F3D0; background: linear-gradient(90deg, #ECFDF5 0%, rgba(236, 253, 245, 0) 100%); color: #4ADE80; }
+        .stat-fail { border-color: #FECACA; background: linear-gradient(90deg, #FEF2F2 0%, rgba(254, 242, 242, 0) 100%); color: #F87171; }
+        .stat-accuracy { border-color: #E5E7EB; background: linear-gradient(90deg, #F3F4F6 0%, rgba(243, 244, 246, 0) 100%); color: #9CA3AF; }
+        .stat-bets { border-color: #DDD6FE; background: linear-gradient(90deg, #F5F3FF 0%, rgba(245, 243, 255, 0) 100%); color: #8B5CF6; }
+
+        #profile-view {
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: var(--profile-bg);
+            padding-bottom: 30px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            transition: background-color 0.3s;
+        }
+        #profile-view::-webkit-scrollbar { display: none; }
+
+        .profile-header-bg {
+            background: linear-gradient(180deg, var(--bg-main) 0%, var(--profile-bg) 100%);
+            padding: 40px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: white;
+            font-size: 36px;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .profile-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .crown-icon { fill: var(--primary); }
+
+        .profile-device-box {
+            border: 2px dashed var(--light);
+            background-color: var(--faint);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin: -15px 20px 20px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .device-label, .device-id {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--device-box-text);
+        }
+
+        .profile-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            margin: 25px 20px 12px;
+        }
+
+        .profile-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 0 20px;
+        }
+
+        .profile-item {
+            background-color: var(--item-bg);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .profile-item:active {
+            transform: scale(0.97);
+            opacity: 0.8;
+        }
+
+        .profile-item-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .profile-item-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 22px;
+            height: 22px;
+            color: #000000;
+        }
+
+        .profile-item-right {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+        }
+        .profile-item-right svg path:first-child {
+            fill: var(--primary);
+        }
+
+        .bottom-nav {
+            width: 100%;
+            height: 65px;
+            background-color: var(--item-bg);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            padding-bottom: env(safe-area-inset-bottom, 5px);
+            flex-shrink: 0;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 60px;
+        }
+
+        .nav-icon-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item.active .nav-icon-wrapper {
+            transform: translateY(-2px);
+        }
+
+        .nav-item svg path, .nav-item svg rect, .nav-item svg circle {
+            transition: fill 0.2s ease, stroke 0.2s ease;
+        }
+
+        .nav-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #888;
+            display: none;
+            margin-top: 2px;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-item.active .nav-text {
+            display: block;
+            color: var(--nav-fill-color);
+        }
+
+        .nav-item:not(.active) svg [fill="#957DEC"],
+        .nav-item:not(.active) svg [fill="#1c1c1e"] { fill: #888; }
+        .nav-item:not(.active) svg [stroke="white"] { stroke: var(--item-bg); }
+        .nav-item:not(.active) svg circle[fill="white"],
+        .nav-item:not(.active) svg rect[fill="white"] { fill: var(--item-bg); }
+        .nav-item.active svg [fill="#957DEC"],
+        .nav-item.active svg [fill="#1c1c1e"] { fill: var(--nav-fill-color); }
+        .nav-item.active svg [stroke="white"] { stroke: var(--nav-stroke-color); }
+        .nav-item.active svg circle[fill="white"],
+        .nav-item.active svg rect[fill="white"] { fill: var(--nav-stroke-color); }
+
+        .info-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(3px);
+            z-index: 100000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .info-modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+        .info-modal-box {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 340px;
+            border-radius: 24px;
+            padding: 35px 25px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .info-modal-overlay.show .info-modal-box {
+            transform: scale(1);
+        }
+        .info-modal-icon {
+            margin-bottom: 20px;
+            filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.15));
+        }
+        .info-modal-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: #000;
+            margin-bottom: 15px;
+        }
+        .info-modal-desc {
+            font-size: 12px;
+            font-weight: 600;
+            color: #000;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        .info-modal-btn {
+            width: 100%;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--pred-number-bg);
+            color: var(--pred-number-text);
+            font-size: 16px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .info-modal-btn:active {
+            transform: scale(0.96);
+        }
+
+        @media (max-width: 480px) {
+            .jackpot-text { font-size: 20px; }
+            .jackpot-content { padding: 20px 30px; }
+            .mode-btn { font-size: 10px; }
+            .history-item { flex-direction: column; gap: 8px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <div id="landing-page">
+        <div class="landing-image-container anim-fade-up delay-1">
+            <img src="https://i.ibb.co/C32ns7YY/1000176976-removebg-preview.png" alt="Bunny Mods Preview" class="landing-image">
+        </div>
+        <div class="landing-content-area">
+            <h1 class="landing-title anim-fade-up delay-2">ZEROX MODS<br>SIMPLE &amp; SECURE</h1>
+            <p class="landing-subtitle anim-fade-up delay-2">Smart predictions powered by ZEROX AI<br></p>
+
+            <div class="landing-cards-row anim-fade-up delay-3">
+                <div class="l-card join" onclick="window.open('https://t.me/+kRVlNNeA6FRjNjQ1', '_blank')">
+                    <div class="l-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 2L11 13" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M22 2L15 22L11 13L2 9L22 2Z" fill="black"></path></svg></div>
+                    <div class="l-card-text"><strong>Join<br>Channel</strong><span>•Get Latest<br>updates!</span></div>
+                </div>
+                <div class="l-card support" onclick="window.open('https://t.me/Error_404_System', '_blank')">
+                    <div class="l-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 18V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V18" stroke="black" stroke-width="2.5" stroke-linecap="round"></path><path d="M3 14H6C7.10457 14 8 14.8954 8 16V19C8 20.1046 7.10457 21 6 21H3V14Z" fill="black"></path><path d="M21 14H18C16.8954 14 16 14.8954 16 16V19C16 20.1046 16.8954 21 18 21H21V14Z" fill="black"></path><path d="M16 21H18M18 21C18 22.1046 17.1046 23 16 23C14.8954 23 14 22.1046 14 21V19C14 17.8954 14.8954 17 16 17H18M18 21H20" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+                    <div class="l-card-text"><strong>Customer<br>&amp; Support</strong><span>• We are here to<br>help!</span></div>
+                </div>
+            </div>
+
+            <button id="get-sub-btn" class="landing-main-btn anim-fade-up delay-4"><svg viewBox="0 0 24 24" width="20" height="20" fill="#FFFFFF"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"></path></svg> Get Subscription</button>
+
+            <div class="device-id-display anim-fade-up delay-5">
+                Device I'D: <span id="display-device-id">Loading...</span>
+                <div class="copy-icon-btn" id="copy-id-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 8H18V18H8V8Z" stroke="black" stroke-width="2.5" stroke-linejoin="round"></path><path d="M16 8V6H6V16H8" stroke="black" stroke-width="2.5" stroke-linejoin="round"></path></svg></div>
+            </div>
+
+            <div class="landing-footer anim-fade-up delay-5">
+                <div><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Privacy &amp; Policy</div>
+                <div><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Terms &amp; Conditions</div>
+                <div><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Disclaimer</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-fixed-area">
+        <div class="header">
+            <div class="header-left">
+                <div class="logo-circle"><img id="header-avatar-img" src="https://api.dicebear.com/8.x/adventurer/svg?seed=default" style="width: 100%; height: 100%; object-fit: cover;" alt="Logo"></div>
+                <div class="header-text"><h1>ZEROX MODS</h1><p id="header-slogan" style="opacity: 0;">✨ Let your patience print rewards</p></div>
+            </div>
+            <div class="header-right">
+                <button id="darkModeToggle" class="dark-mode-glass" style="background: transparent; border: none; cursor: pointer; margin-right: 10px; font-size: 18px;">🌙</button>
+                <div id="open-info-modal" style="cursor: pointer;"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2L18 6L14 10L10 6L14 2Z" stroke-width="2.5" stroke-linejoin="round"></path><path d="M22 10L26 14L22 18L18 14L22 10Z" stroke-width="2.5" stroke-linejoin="round"></path><path d="M14 18L18 22L14 26L10 22L14 18Z" stroke-width="2.5" stroke-linejoin="round"></path><path d="M6 10L10 14L6 18L2 14L6 10Z" stroke-width="2.5" stroke-linejoin="round"></path></svg></div>
+            </div>
+        </div>
+        <div class="disclaimer-bar"><div id="disclaimer-text">We are not responsible for any loss or misuse of the app.</div></div>
+    </div>
+
+    <div class="main-content-area">
+        <div id="home-view" class="view-section active">
+            <div class="date-selector" id="dynamic-date-selector"></div>
+            <div class="grid-container"><div class="main-number" id="expire-days-main">-</div><div class="days-label">DAYS REMAINING</div></div>
+            <div class="timer-container">
+                <div class="timer-item"><div class="timer-circle"><div class="timer-circle-inner" id="expire-hours">00</div></div><span class="timer-label">Hours</span></div>
+                <div class="timer-item"><div class="timer-circle"><div class="timer-circle-inner" id="expire-minutes">00</div></div><span class="timer-label">Minutes</span></div>
+                <div class="timer-item"><div class="timer-circle"><div class="timer-circle-inner" id="expire-seconds">00</div></div><span class="timer-label">Seconds</span></div>
+            </div>
+
+            <div class="select-game-section">
+                <h2 class="section-title">Select Game</h2>
+                <div class="games-scroll" id="dynamic-games-container"></div>
+            </div>
+
+            <div class="new-content-section">
+                <div class="flex-between"><h2 class="section-title" style="margin-bottom:0;">Select Wingo</h2><div class="dropdown-box">Big/Small <span class="dropdown-icon">▼</span></div></div>
+                <div class="wingo-grid" id="wingo-selections" style="margin-bottom: 20px;">
+                    <div class="wingo-item active" data-duration="30"><div class="wingo-clock"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg></div><span>Win Go<br>30s</span></div>
+                    <div class="wingo-item" data-duration="60"><div class="wingo-clock"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg></div><span>Win Go<br>1Min</span></div>
+                    <div class="wingo-item" data-duration="180"><div class="wingo-clock"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg></div><span>Win Go<br>3Min</span></div>
+                    <div class="wingo-item" data-duration="300"><div class="wingo-clock"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg></div><span>Win Go<br>5Min</span></div>
+                </div>
+
+                <h2 class="section-title">Select Server</h2>
+                <div class="server-scroll-row">
+                    <div class="server-btn">S1</div><div class="server-btn">S2</div><div class="server-btn">S3</div>
+                    <div class="server-btn pill" id="pro-rexen-btn"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C12 6.627 17.373 12 24 12C17.373 12 12 17.373 6.627 12 0 12C6.627 12 12 6.627 12 0Z"/></svg> PRO REX</div>
+                </div>
+
+                <div class="flex-between"><h2 class="section-title" style="margin-bottom:0;">Server Status</h2><span class="status-text" id="status-indicator">Waiting for Server...</span></div>
+                <div class="status-bar">
+                    <div class="status-bar-val"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg><span id="wingo-period-display">XXXXXX0882</span></div>
+                    <div class="status-bar-val"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><polyline points="12 9 12 13 14 15"/><line x1="16" y1="5" x2="16" y2="5"/><line x1="8" y1="5" x2="8" y2="5"/><line x1="12" y1="5" x2="12" y2="5"/></svg><span id="wingo-time-display">00:20</span></div>
+                </div>
+                <p class="disclaimer-text">◆ Please select your server wisely — each server works independently with different logic and performance. Choose one, play with discipline, and switch only when instructed.</p>
+
+                <div class="prediction-section">
+                    <div class="pred-box pending"><div class="pred-label">P E N D I N G &nbsp;:</div><div class="pred-circle" id="pending-result">X</div></div>
+                    <div class="pred-box number"><div class="pred-label">N U M B E R &nbsp;:</div><div class="pred-circle" id="number-result">N</div></div>
+                </div>
+            </div>
+
+            <div id="prediction-enhancement-panel" class="glass-panel" style="display: none;">
+                <div class="mode-title">🎯 PREDICTION MODE</div>
+                <div class="mode-buttons">
+                    <button class="mode-btn" data-mode="trend">📈 TREND</button>
+                    <button class="mode-btn active" data-mode="random">🎲 RANDOM</button>
+                    <button class="mode-btn" data-mode="pattern">🧠 PATTERN</button>
+                </div>
+
+                <div class="result-title">ENTER ACTUAL NUMBER</div>
+                <div class="result-input-group">
+                    <input type="number" id="actualResultInput" class="result-input-glass" placeholder="0-9" min="0" max="9">
+                    <button id="verifyResultBtn" class="verify-glass-btn">⚡ VERIFY</button>
+                </div>
+            </div>
+
+            <div id="jackpotBanner" class="jackpot-banner" style="display: none;">
+                <div class="jackpot-content">
+                    <span class="jackpot-icon">🎰</span>
+                    <span class="jackpot-text">JACKPOT WIN!</span>
+                    <span class="jackpot-icon">🏆</span>
+                </div>
+                <div class="jackpot-pulse"></div>
+            </div>
+
+            <div class="history-glass-panel">
+                <div class="history-header">
+                    <div class="history-title">📜 PREDICTION HISTORY</div>
+                    <button id="clearHistoryBtn" class="clear-history-glass">🗑️ CLEAR</button>
+                </div>
+                <div id="historyList" class="history-list">
+                    <div class="empty-history">No predictions yet. Make your first prediction!</div>
+                </div>
+            </div>
+
+            <div class="stats-pattern-container">
+                <div class="illustration-box"><svg width="220" height="150" viewBox="0 0 220 150" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="phoneBodyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D7C9FF"/><stop offset="100%" stop-color="#F2EFFF"/></linearGradient><radialGradient id="glowGradient" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C5B2FF"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><path d="M60 120C40 120 30 100 40 80C50 60 80 70 80 90C80 110 70 120 60 120Z" fill="#EAE1FD" opacity="0.6"/><path d="M160 110C180 110 190 90 180 70C170 50 140 60 140 80C140 100 150 110 160 110Z" fill="#EAE1FD" opacity="0.6"/><circle cx="110" cy="75" r="60" fill="url(#glowGradient)" opacity="0.3"/><rect x="75" y="10" width="70" height="130" rx="12" fill="url(#phoneBodyGrad)" stroke="#FFFFFF" stroke-width="3"/><rect x="100" y="15" width="20" height="3" rx="1.5" fill="#D8C9FB"/><g transform="translate(110, 75)"><rect x="-16" y="-16" width="12" height="12" rx="3" transform="rotate(45)" fill="#FFFFFF"/><rect x="4" y="-16" width="12" height="12" rx="3" transform="rotate(45)" fill="#FFFFFF"/><rect x="-16" y="4" width="12" height="12" rx="3" transform="rotate(45)" fill="#FFFFFF"/><rect x="4" y="4" width="12" height="12" rx="3" transform="rotate(45)" fill="#FFFFFF"/></g><g transform="translate(45, 20)"><path d="M20 0C8.954 0 0 8.954 0 20C0 25.14 1.95 29.82 5.16 33.32L4 42L12.5 40.5C14.86 41.48 17.37 42 20 42C31.046 42 40 33.046 40 22C40 10.954 31.046 0 20 0Z" fill="#FFFFFF" filter="drop-shadow(0px 8px 16px rgba(150, 120, 230, 0.15))"/><circle cx="20" cy="14" r="2.5" fill="#A486F5"/><rect x="18.5" y="19" width="3" height="10" rx="1.5" fill="#A486F5"/></g><g transform="translate(50, 80) scale(0.6)"><circle cx="20" cy="20" r="14" fill="#DCD0FF"/><circle cx="20" cy="20" r="6" fill="#FFFFFF"/><rect x="17" y="2" width="6" height="36" rx="2" fill="#DCD0FF"/><rect x="2" y="17" width="36" height="6" rx="2" fill="#DCD0FF"/><rect x="17" y="2" width="6" height="36" rx="2" fill="#DCD0FF" transform="rotate(45 20 20)"/><rect x="2" y="17" width="36" height="6" rx="2" fill="#DCD0FF" transform="rotate(45 20 20)"/></g><g transform="translate(130, 80) scale(0.9)"><circle cx="25" cy="25" r="16" fill="#FFFFFF" filter="drop-shadow(0px 4px 10px rgba(150, 120, 230, 0.2))"/><circle cx="25" cy="25" r="10" fill="none" stroke="#EFE9FF" stroke-width="3"/><rect x="35" y="35" width="5" height="14" rx="2.5" transform="rotate(-45 35 35)" fill="#FFFFFF" filter="drop-shadow(0px 4px 10px rgba(150, 120, 230, 0.2))"/></g><path d="M140 20 L142 25 L147 27 L142 29 L140 34 L138 29 L133 27 L138 25 Z" fill="#D8C9FB"/><path d="M90 40 L91 43 L94 44 L91 45 L90 48 L89 45 L86 44 L89 43 Z" fill="#FFFFFF"/></svg></div>
+                <div class="pill-grid" id="history-number-grid"></div>
+                <div class="abstract-row" id="history-bs-row"></div>
+                <div class="rings-row"><div class="hollow-ring ring-green"></div><div class="hollow-ring ring-red"></div><div class="hollow-ring ring-gray"></div><div class="hollow-ring ring-purple"></div></div>
+                <div class="stats-dashboard">
+                    <div class="stats-row-2"><div class="stat-card stat-pass"><span>Pass</span><strong>0</strong></div><div class="stat-card stat-fail"><span>Fail</span><strong>0</strong></div></div>
+                    <div class="stat-card stat-accuracy"><span>Accuracy</span><strong>0%</strong></div>
+                    <div class="stat-card stat-bets"><span>Bets</span><strong id="bet-counter">0</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="games-view" class="view-section">
+            <div id="no-game-connected" class="empty-state"><img src="https://i.ibb.co/X1LvN70/remove-google-chrome-from-your-computer-free-png.png" alt="Not Connected" class="error-img"><h3 class="error-text">Game Server isn't Connected!</h3></div>
+            <iframe id="game-iframe" src=""></iframe>
+        </div>
+
+        <div id="profile-view" class="view-section">
+            <div class="profile-header-bg"><div class="profile-avatar"><img id="profile-avatar-img" src="https://api.dicebear.com/8.x/adventurer/svg?seed=default" style="width: 100%; height: 100%; object-fit: cover;" alt="Profile"></div><h2 class="profile-name" id="profile-user-name">Hello, User</h2><div class="profile-status"><svg class="crown-icon" viewBox="0 0 24 24" width="18" height="18"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg><span>Premium User of ZEROX MODS!</span></div></div>
+            <div class="profile-device-box"><span class="device-label">Your device I'D :</span><span class="device-id" id="profile-device-id">Loading...</span></div>
+            <div class="profile-section-title">User &amp; Application Info</div>
+            <div class="profile-list">
+                <div class="profile-item" id="profile-theme-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>Sweeg Theme</div><div class="profile-item-right"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 1L14.5 4.5L19 4.5L19 9L23 12L19 15L19 19.5L14.5 19.5L12 23L9.5 19.5L5 19.5L5 15L1 12L5 9L5 4.5L9.5 4.5L12 1Z" fill="var(--primary)" style="transform-origin: center; transform: rotate(15deg);"/><path d="M12 7.5V16.5M7.5 12H16.5" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/></svg></div></div>
+                <div class="profile-item" id="profile-status-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/></svg></div>Account Status</div><div class="profile-item-right"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 1L14.5 4.5L19 4.5L19 9L23 12L19 15L19 19.5L14.5 19.5L12 23L9.5 19.5L5 19.5L5 15L1 12L5 9L5 4.5L9.5 4.5L12 1Z" fill="var(--primary)" style="transform-origin: center; transform: rotate(15deg);"/><path d="M8 12.5L11 15.5L16.5 9.5" stroke="var(--item-bg)" stroke-width="3" stroke-linecap="round"/></svg></div></div>
+                <div class="profile-item" id="profile-channel-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M3.33 17.22c.26.15.53.22.81.22.37 0 .73-.15 1-.43l1.83-1.83 5.3 2.65c.18.09.38.14.58.14.24 0 .47-.07.68-.2l6-4c.46-.31.74-.83.74-1.38V5.61c0-.55-.28-1.08-.74-1.38l-6-4c-.39-.26-.88-.31-1.3-.12L5 3.65C4.38 3.93 4 4.55 4 5.22v7.12l-1.38 1.38c-.41.41-.53 1.04-.29 1.5z"/></svg></div>Channel/Group</div></div>
+                <div class="profile-item" id="profile-share-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg></div>Share Application</div></div>
+                <div class="profile-item" id="profile-server-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6L2 9.6h7.6z"/></svg></div>Server Info</div></div>
+                <div class="profile-item" id="profile-update-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></div>Update Info</div></div>
+                <div class="profile-item" id="profile-version-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg></div>Version Info</div><div class="profile-item-right" style="color: var(--primary);">1.0 DeltaFox</div></div>
+            </div>
+            <div class="profile-section-title">Application Policies</div>
+            <div class="profile-list">
+                <div class="profile-item" id="profile-policy-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>Application Policy</div></div>
+                <div class="profile-item" id="profile-terms-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg></div>Terms and Conditions</div></div>
+                <div class="profile-item" id="profile-disclaimer-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15h2v2h-2v-2zm0-8h2v6h-2V8z"/></svg></div>Disclaimer</div></div>
+                <div class="profile-item" id="profile-agreement-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>User Agreement</div></div>
+            </div>
+            <div class="profile-section-title">Copyright</div>
+            <div class="profile-list"><div class="profile-item" id="profile-copyright-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-5.5h4v1.5H9c-1.66 0-3-1.34-3-3v-2c0-1.66 1.34-3 3-3h3v1.5H9c-.83 0-1.5.67-1.5 1.5v2c0 .83.67 1.5 1.5 1.5z"/></svg></div>Copyright by ZEROX MODS</div></div></div>
+            <div class="profile-section-title">Exit</div>
+            <div class="profile-list" style="margin-bottom: 30px;"><div class="profile-item" id="profile-logout-btn"><div class="profile-item-left"><div class="profile-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>Logout</div></div></div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" data-target="Home"><div class="nav-icon-wrapper"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C10.8 2 9.8 2.7 9.1 3.7L3.6 10.9C2.6 12.2 2 13.9 2 15.6V19.5C2 21.4 3.6 23 5.5 23H18.5C20.4 23 22 21.4 22 19.5V15.6C22 13.9 21.4 12.2 20.4 10.9L14.9 3.7C14.2 2.7 13.2 2 12 2Z" fill="#957DEC"></path><rect x="9.5" y="15.5" width="5" height="1.5" rx="0.75" fill="white"></rect></svg></div><span class="nav-text">Home</span></div>
+        <div class="nav-item" data-target="Games"><div class="nav-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.5 8C20.5 8 21.5 16 20.5 18C19.5 20 18 19.5 17 18C16 16.5 15 15 15 15H9C9 15 8 16.5 7 18C6 19.5 4.5 20 3.5 18C2.5 16 3.5 8 3.5 8C3.5 6 6.5 5 8.5 5H15.5C17.5 5 20.5 6 20.5 8Z" fill="#1c1c1e"></path><path d="M7 9V11M5.5 10H8.5" stroke="white" stroke-width="1.5" stroke-linecap="round"></path><circle cx="16.5" cy="8.5" r="1.2" fill="white"></circle><circle cx="18.5" cy="10.5" r="1.2" fill="white"></circle><circle cx="16.5" cy="12.5" r="1.2" fill="white"></circle><circle cx="14.5" cy="10.5" r="1.2" fill="white"></circle></svg></div><span class="nav-text">Games</span></div>
+        <div class="nav-item" data-target="Profile"><div class="nav-icon-wrapper"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" fill="#1c1c1e"></circle><path d="M5.5 18C7 16.5 7.5 15.5 7.5 13.5V12.5C6 11.5 5.5 10 5.5 8C5.5 5.5 8 3.5 12 3.5C16 3.5 18.5 5.5 18.5 8C18.5 10 18 11.5 16.5 12.5V13.5C16.5 15.5 17 16.5 18.5 18" stroke="white" stroke-width="1.5" stroke-linecap="round"></path><path d="M7.5 18H16.5" stroke="white" stroke-width="1.5"></path></svg></div><span class="nav-text">Profile</span></div>
+    </div>
+</div>
+
+<div id="info-modal-overlay" class="info-modal-overlay">
+    <div class="info-modal-box">
+        <div class="info-modal-icon"><svg viewBox="0 0 100 100" width="105" height="105"><circle cx="50" cy="50" r="42" fill="#EBEBEB" stroke="#000000" stroke-width="12"></circle><rect x="45" y="26" width="10" height="48" rx="5" fill="#000000"></rect></svg></div>
+        <h3 class="info-modal-title">◆ About ZEROX MODS</h3>
+        <p class="info-modal-desc">ZEROX MODS is an AI-powered prediction and analysis app built to deliver smart, fast, and stable performance.<br><br>Driven by the ZEROX AI engine, it analyzes real-time data and patterns to provide adaptive and accurate results.<br><br>The system includes multiple ZEROX AI servers designed for 1-Minute and 30-Second Wingo modes, ensuring smooth and consistent outcomes.<br><br>ZEROX MODS focuses on smart logic, disciplined play, and an enhanced AI experience for educational and research purposes.<br><br><strong>Official Source - @ZEROXBHAI45</strong></p>
+        <button id="close-info-modal" class="info-modal-btn">CLOSE</button>
+    </div>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBJH5hH5KMu0_zgbeS3-n-7HpGkcP3SeF8",
+        authDomain: "exam-65f1f.firebaseapp.com",
+        databaseURL: "https://trail-d2061-default-rtdb.firebaseio.com",
+        projectId: "trail-d2061",
+        storageBucket: "trail-d2061.firebasestorage.app",
+        messagingSenderId: "539626053328",
+        appId: "1:539626053328:android:9d2400421cbd35876848d5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    let userExpiryTimestamp = null;
+    let hasProRexenAccess = false;
+    const defaultName = 'User';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let deviceId = localStorage.getItem('bunny_device_id');
+        if (!deviceId) {
+            const cookieMatch = document.cookie.match(/(^| )bunny_device_id=([^;]+)/);
+            if (cookieMatch) deviceId = cookieMatch[2];
+        }
+        if(!deviceId) {
+            const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            deviceId = Array.from({length: 12}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+            localStorage.setItem('bunny_device_id', deviceId);
+            document.cookie = "bunny_device_id=" + deviceId + "; max-age=315360000; path=/";
+        } else {
+            localStorage.setItem('bunny_device_id', deviceId);
+            document.cookie = "bunny_device_id=" + deviceId + "; max-age=315360000; path=/";
+        }
+        
+        const deviceIdDisplay = document.getElementById('display-device-id');
+        const profileDeviceId = document.getElementById('profile-device-id');
+        const getSubBtn = document.getElementById('get-sub-btn');
+        const landingPage = document.getElementById('landing-page');
+        const headerAvatar = document.getElementById('header-avatar-img');
+        const profileAvatar = document.getElementById('profile-avatar-img');
+        const profileName = document.getElementById('profile-user-name');
+        const defaultAvatarUrl = `https://i.ibb.co/rRb31XQc/79dd11a9452a92a1accceec38a45e16a.jpg`;
+        if(headerAvatar) headerAvatar.src = defaultAvatarUrl;
+        if(profileAvatar) profileAvatar.src = defaultAvatarUrl;
+        if(profileName) profileName.innerHTML = `Hello, ${defaultName} ${deviceId.substring(0,4)}`;
+        deviceIdDisplay.innerText = deviceId;
+        profileDeviceId.innerText = deviceId;
+
+        const copyBtn = document.getElementById('copy-id-btn');
+        if(copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(deviceId).then(() => alert("Device ID Copied!\nID: " + deviceId)).catch(() => alert("ID: " + deviceId));
+            });
+        }
+        if(getSubBtn) getSubBtn.addEventListener('click', () => window.location.href = 'https://t.me/+kRVlNNeA6FRjNjQ1');
+
+        const deviceRef = ref(db, 'approved_devices/' + deviceId);
+        onValue(deviceRef, (snapshot) => {
+            const data = snapshot.val();
+            if (!data) {
+                userExpiryTimestamp = null; hasProRexenAccess = false;
+                deviceIdDisplay.innerHTML = `${deviceId}`;
+                getSubBtn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="#FFFFFF"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg> Get Subscription`;
+                landingPage.style.display = 'flex';
+                setTimeout(() => { landingPage.style.opacity = '1'; landingPage.style.transform = 'scale(1)'; }, 10);
+            } else if (data.status === 'active') {
+                hasProRexenAccess = (data.pro_rexen_access === true || data.proRexen === true);
+                if (data.expiry && Date.now() > data.expiry) {
+                    userExpiryTimestamp = null;
+                    deviceIdDisplay.innerHTML = `${deviceId} <span style='color: #EF4444; font-size: 11px;'>(Expired)</span>`;
+                    getSubBtn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="#FFFFFF"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg> Subscription Expired`;
+                    landingPage.style.display = 'flex';
+                } else {
+                    userExpiryTimestamp = data.expiry;
+                    deviceIdDisplay.innerHTML = `${deviceId}`;
+                    getSubBtn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="#FFFFFF"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg> Access Granted!`;
+                    setTimeout(() => {
+                        landingPage.style.opacity = '0';
+                        landingPage.style.transform = 'scale(0.95)';
+                        setTimeout(() => { landingPage.style.display = 'none'; }, 400);
+                    }, 3000);
+                }
+            } else {
+                userExpiryTimestamp = null; hasProRexenAccess = false;
+                deviceIdDisplay.innerHTML = `${deviceId} <span style='color: #F59E0B; font-size: 11px;'>(Not Active)</span>`;
+                getSubBtn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="#FFFFFF"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg> Contact Admin`;
+                landingPage.style.display = 'flex';
+            }
+        });
+    });
+
+    let currentSelectedGameLink = null;
+    const navItems = document.querySelectorAll('.nav-item');
+    const viewSections = { 'Home': document.getElementById('home-view'), 'Games': document.getElementById('games-view'), 'Profile': document.getElementById('profile-view') };
+    function switchTab(tabName) {
+        navItems.forEach(item => item.classList.toggle('active', item.getAttribute('data-target') === tabName));
+        Object.keys(viewSections).forEach(key => viewSections[key].classList.toggle('active', key === tabName));
+        if (tabName === 'Games') {
+            const noGameEl = document.getElementById('no-game-connected');
+            const iframeEl = document.getElementById('game-iframe');
+            if (currentSelectedGameLink) {
+                noGameEl.style.display = 'none';
+                iframeEl.style.display = 'block';
+                if (iframeEl.src !== currentSelectedGameLink) iframeEl.src = currentSelectedGameLink;
+            } else {
+                noGameEl.style.display = 'flex';
+                iframeEl.style.display = 'none';
+            }
+        }
+    }
+    navItems.forEach(item => item.addEventListener('click', () => switchTab(item.getAttribute('data-target'))));
+
+    const infoModal = document.getElementById('info-modal-overlay');
+    const openInfoModalBtn = document.getElementById('open-info-modal');
+    const closeInfoModalBtn = document.getElementById('close-info-modal');
+    if(openInfoModalBtn && infoModal && closeInfoModalBtn) {
+        openInfoModalBtn.addEventListener('click', () => infoModal.classList.add('show'));
+        closeInfoModalBtn.addEventListener('click', () => infoModal.classList.remove('show'));
+    }
+
+    const dynamicGamesContainer = document.getElementById('dynamic-games-container');
+    const gamesRef = ref(db, 'games');
+    onValue(gamesRef, (snapshot) => {
+        const data = snapshot.val();
+        dynamicGamesContainer.innerHTML = '';
+        if (data) {
+            Object.keys(data).forEach(key => {
+                const game = data[key];
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `<div class="phone-mockup" style="background: url('${game.image}') center/cover no-repeat;"><div class="phone-notch"></div></div><div class="game-title">${game.name}</div>`;
+                gameCard.onclick = () => {
+                    document.querySelectorAll('.game-card').forEach(c => c.classList.remove('selected'));
+                    gameCard.classList.add('selected');
+                    if (game.link) { currentSelectedGameLink = game.link; switchTab('Games'); }
+                };
+                dynamicGamesContainer.appendChild(gameCard);
+            });
+        } else dynamicGamesContainer.innerHTML = '<div style="font-size:12px; color:#888; padding: 10px;">No games available.</div>';
+    });
+
+    let isServerSelected = false, activeServerMode = 'S1';
+    const pendingResultEl = document.getElementById('pending-result');
+    const numberResultEl = document.getElementById('number-result');
+    const statPassEl = document.querySelector('.stat-pass strong');
+    const statFailEl = document.querySelector('.stat-fail strong');
+    const statAccuracyEl = document.querySelector('.stat-accuracy strong');
+    const statBetsEl = document.getElementById('bet-counter');
+    const wingoTimeDisplay = document.getElementById('wingo-time-display');
+    const wingoPeriodDisplay = document.getElementById('wingo-period-display');
+    const wingoItems = document.querySelectorAll('.wingo-item');
+    const serverBtns = document.querySelectorAll('.server-btn');
+    const statusIndicator = document.getElementById('status-indicator');
+    let wingoDuration = 30, currentPeriod = "";
+    let passCount = 0, failCount = 0, betCount = 0, lastPredictionType = null, lastPredictionPeriod = null;
+
+    function renderHistory(last5) {
+        const gridEl = document.getElementById('history-number-grid');
+        const bsRowEl = document.getElementById('history-bs-row');
+        if (gridEl) {
+            let gridHtml = '';
+            for (let row = 9; row >= 0; row--) {
+                for (let col = 0; col < 5; col++) {
+                    const num = last5[col];
+                    gridHtml += num === row ? `<div class="grid-pill solid"></div>` : `<div class="grid-pill"></div>`;
+                }
+            }
+            gridEl.innerHTML = gridHtml;
+        }
+        if (bsRowEl) {
+            let bsHtml = '';
+            for (let col = 0; col < 5; col++) {
+                const num = last5[col];
+                let text = (num !== undefined && num >= 0 && !isNaN(num)) ? (num >= 5 ? 'B' : 'S') : '-';
+                bsHtml += `<div class="abstract-icon"><svg viewBox="0 0 45 45" fill="none"><defs><linearGradient id="xGrad-${col}" x1="0" y1="0" x2="0" y2="45"><stop offset="0%" stop-color="#A486F5"/><stop offset="100%" stop-color="#A486F5" stop-opacity="0"/></linearGradient></defs><g fill="url(#xGrad-${col})"><rect x="15.5" y="-2" width="14" height="49" rx="7" transform="rotate(45 22.5 22.5)"/><rect x="15.5" y="-2" width="14" height="49" rx="7" transform="rotate(-45 22.5 22.5)"/></g><g fill="#FFF" opacity="0.6" transform="translate(32, 10) rotate(45)"><rect x="-1.5" y="-1.5" width="2" height="2" rx="0.5"/><rect x="1.5" y="-1.5" width="2" height="2" rx="0.5"/><rect x="-1.5" y="1.5" width="2" height="2" rx="0.5"/><rect x="1.5" y="1.5" width="2" height="2" rx="0.5"/></g></svg><span class="bs-text">${text}</span></div>`;
+            }
+            bsRowEl.innerHTML = bsHtml;
+        }
+    }
+
+    async function fetchHistoryAndRender() {
+        let timeStr = wingoDuration === 60 ? '1M' : (wingoDuration === 180 ? '3M' : (wingoDuration === 300 ? '5M' : '30S'));
+        try {
+            const response = await fetch(`https://draw.ar-lottery01.com/WinGo/WinGo_${timeStr}/GetHistoryIssuePage.json?ts=${Date.now()}&page=1&size=5`);
+            if (response.ok) {
+                const responseData = await response.json();
+                let dataList = responseData?.data?.list || [];
+                if (dataList.length > 0) renderHistory(dataList.slice(0, 5).map(item => parseInt(item.number, 10)));
+            }
+        } catch (error) {}
+    }
+    fetchHistoryAndRender();
+
+    async function fetchWingoPrediction(newPeriod) {
+        pendingResultEl.innerText = 'P'; numberResultEl.innerText = 'P';
+        let dataList = [];
+        try {
+            let timeStr = wingoDuration === 60 ? '1M' : (wingoDuration === 180 ? '3M' : (wingoDuration === 300 ? '5M' : '30S'));
+            const response = await fetch(`https://draw.ar-lottery01.com/WinGo/WinGo_${timeStr}/GetHistoryIssuePage.json?ts=${Date.now()}&page=1&size=10`);
+            if (response.ok) {
+                const responseData = await response.json();
+                dataList = responseData?.data?.list || [];
+            }
+        } catch (error) {}
+        if (dataList.length > 0) renderHistory(dataList.slice(0, 5).map(item => parseInt(item.number, 10)));
+        if (lastPredictionType !== null && lastPredictionPeriod !== null) {
+            let actualType = null;
+            if (dataList.length > 0) {
+                const actualRecord = dataList.find(r => String(r.issueNumber) === String(lastPredictionPeriod)) || dataList[0];
+                const actualNumber = parseInt(actualRecord.number, 10);
+                if (!isNaN(actualNumber)) actualType = [5,6,7,8,9].includes(actualNumber) ? 'B' : 'S';
+            }
+            if (actualType === null) actualType = [5,6,7,8,9].includes(Math.floor(Math.random() * 10)) ? 'B' : 'S';
+            const rings = document.querySelectorAll('.hollow-ring');
+            const flashDeepColor = (index, deepClass) => {
+                rings[index].classList.add(deepClass);
+                rings[index].style.transform = 'scale(1.15)';
+                setTimeout(() => { rings[index].classList.remove(deepClass); rings[index].style.transform = 'scale(1)'; }, 1500);
+            };
+            if (lastPredictionType === actualType) { passCount++; flashDeepColor(0, 'deep-green'); } else { failCount++; flashDeepColor(1, 'deep-red'); }
+            betCount++; flashDeepColor(3, 'deep-purple');
+            statPassEl.innerText = passCount; statFailEl.innerText = failCount; statBetsEl.innerText = betCount;
+            const newAccuracy = ((passCount / betCount) * 100).toFixed(0) + '%';
+            if (statAccuracyEl.innerText !== newAccuracy) { statAccuracyEl.innerText = newAccuracy; flashDeepColor(2, 'deep-gray'); }
+            setTimeout(() => {
+                statPassEl.parentElement.style.transform = 'scale(1)';
+                statFailEl.parentElement.style.transform = 'scale(1)';
+                statAccuracyEl.parentElement.style.transform = 'scale(1)';
+                statBetsEl.parentElement.style.transform = 'scale(1)';
+            }, 300);
+        }
+        setTimeout(() => {
+            let periodNum = parseInt(String(newPeriod).slice(-4), 10) || 0;
+            let lastNum = 0;
+            if (dataList.length > 0) { lastNum = parseInt(dataList[0].number, 10); if (isNaN(lastNum)) lastNum = 0; }
+            let isNextBig = false;
+            if (activeServerMode === 'S1') isNextBig = ((periodNum + lastNum) % 2 === 0);
+            else if (activeServerMode === 'S2') isNextBig = ((periodNum + lastNum) % 2 !== 0);
+            else if (activeServerMode === 'S3') { let sumDigits = String(periodNum).split('').reduce((a, b) => a + parseInt(b), 0); isNextBig = ((sumDigits + lastNum) % 2 === 0); }
+            else isNextBig = (((periodNum * 3) + lastNum) % 2 !== 0);
+            const predType = isNextBig ? 'B' : 'S';
+            const pseudoRandomIndex = (periodNum + lastNum) % 5;
+            let predNum = isNextBig ? [5,6,7,8,9][pseudoRandomIndex] : [0,1,2,3,4][pseudoRandomIndex];
+            lastPredictionType = predType; lastPredictionPeriod = newPeriod;
+            pendingResultEl.innerText = predType; numberResultEl.innerText = predNum;
+        }, 500);
+    }
+
+    function runGameLogic() {
+        const now = new Date();
+        const year = now.getUTCFullYear(), month = String(now.getUTCMonth() + 1).padStart(2, '0'), day = String(now.getUTCDate()).padStart(2, '0');
+        const hours = now.getUTCHours(), minutes = now.getUTCMinutes(), seconds = now.getUTCSeconds();
+        const totalSecondsToday = (hours * 3600) + (minutes * 60) + seconds;
+        const periodCount = Math.floor(totalSecondsToday / wingoDuration) + 1;
+        const remainingSeconds = wingoDuration - (totalSecondsToday % wingoDuration);
+        let padLength = (wingoDuration < 180) ? 4 : 3;
+        const newPeriod = `${year}${month}${day}${String(periodCount).padStart(padLength, '0')}`;
+        const m = Math.floor(remainingSeconds / 60), s = remainingSeconds % 60;
+        wingoTimeDisplay.innerText = (m < 10 ? '0'+m : m) + ':' + (s < 10 ? '0'+s : s);
+        wingoPeriodDisplay.innerText = "XXXXXX" + newPeriod.slice(-4);
+        if (newPeriod !== currentPeriod) {
+            currentPeriod = newPeriod;
+            if (isServerSelected) setTimeout(() => fetchWingoPrediction(currentPeriod), 1500);
+        }
+    }
+
+    wingoItems.forEach(item => {
+        item.addEventListener('click', () => {
+            wingoItems.forEach(w => w.classList.remove('active'));
+            item.classList.add('active');
+            wingoDuration = parseInt(item.getAttribute('data-duration'));
+            currentPeriod = ""; lastPredictionType = null; lastPredictionPeriod = null;
+            fetchHistoryAndRender(); runGameLogic();
+        });
+    });
+
+    serverBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            let serverName = btn.innerText.trim();
+            if(serverName === "") serverName = "PRO REXEN";
+            if ((btn.id === 'pro-rexen-btn' || serverName.includes("PRO REXEN")) && !hasProRexenAccess) {
+                alert("⚠️ Access Denied!\n\nYou do not have permission to access the PRO REXEN server.");
+                return;
+            }
+            isServerSelected = true; activeServerMode = serverName;
+            serverBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            statusIndicator.innerText = `Connected to ${serverName}!`;
+            lastPredictionType = null; lastPredictionPeriod = null; passCount = 0; failCount = 0; betCount = 0;
+            statPassEl.innerText = '0'; statFailEl.innerText = '0'; statAccuracyEl.innerText = '0%'; statBetsEl.innerText = '0';
+            pendingResultEl.innerText = 'X'; numberResultEl.innerText = 'N';
+            currentPeriod = "";
+            fetchHistoryAndRender(); runGameLogic(); fetchWingoPrediction(currentPeriod);
+        });
+    });
+
+    setInterval(runGameLogic, 1000); runGameLogic();
+
+    function generateDynamicDates() {
+        const dateContainer = document.getElementById('dynamic-date-selector');
+        if (!dateContainer) return;
+        dateContainer.innerHTML = '';
+        const today = new Date();
+        for (let i = -2; i <= 2; i++) {
+            const targetDate = new Date(today); targetDate.setDate(today.getDate() + i);
+            const dayName = targetDate.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+            const dateNum = targetDate.getDate();
+            const card = document.createElement('div');
+            card.className = `date-card ${i === 0 ? 'active' : ''}`;
+            card.innerHTML = `<span>${dayName}</span><span>${dateNum}</span>`;
+            dateContainer.appendChild(card);
+        }
+    }
+    generateDynamicDates();
+
+    const dEl = document.getElementById('expire-days-main'), hEl = document.getElementById('expire-hours'), mEl = document.getElementById('expire-minutes'), sEl = document.getElementById('expire-seconds');
+    function updateExpiryTimer() {
+        if (!userExpiryTimestamp || userExpiryTimestamp < Date.now()) {
+            if(dEl) dEl.innerText = '-'; if(hEl) hEl.innerText = '00'; if(mEl) mEl.innerText = '00'; if(sEl) sEl.innerText = '00';
+            return;
+        }
+        const diffMs = userExpiryTimestamp - Date.now();
+        const diffDays = Math.floor(diffMs / (1000*60*60*24));
+        const diffHrs = Math.floor((diffMs % (1000*60*60*24)) / (1000*60*60));
+        const diffMins = Math.floor((diffMs % (1000*60*60)) / (1000*60));
+        const diffSecs = Math.floor((diffMs % (1000*60)) / 1000);
+        if(dEl) dEl.innerText = diffDays < 10 ? '0'+diffDays : diffDays;
+        if(hEl) hEl.innerText = diffHrs < 10 ? '0'+diffHrs : diffHrs;
+        if(mEl) mEl.innerText = diffMins < 10 ? '0'+diffMins : diffMins;
+        if(sEl) sEl.innerText = diffSecs < 10 ? '0'+diffSecs : diffSecs;
+    }
+    setInterval(updateExpiryTimer, 1000); updateExpiryTimer();
+
+    document.getElementById('profile-status-btn')?.addEventListener('click', () => alert(userExpiryTimestamp && userExpiryTimestamp > Date.now() ? "✅ Account Status: Active" : "⚠️ Account Status: Inactive / Expired"));
+    document.getElementById('profile-channel-btn')?.addEventListener('click', () => window.open('https://t.me/+kRVlNNeA6FRjNjQ1', '_blank'));
+    document.getElementById('profile-share-btn')?.addEventListener('click', () => { if (navigator.share) navigator.share({title: 'ZEROX MODS App', text: 'Check out ZEROX MODS!'}); else alert("Share not supported"); });
+    document.getElementById('profile-server-btn')?.addEventListener('click', () => alert("🌐 Server Info: Online & Connected | AI Engine: ZEROX AI v2.1"));
+    document.getElementById('profile-update-btn')?.addEventListener('click', () => alert("🔄 Latest version already installed!"));
+    document.getElementById('profile-version-btn')?.addEventListener('click', () => alert("ℹ️ Version: 1.0 DeltaFox"));
+
+    const textAlerts = {
+        'profile-policy-btn': "📜 Application Policy: Share Device ID = Ban.",
+        'profile-terms-btn': "🤝 Terms: AI-based predictions. Use responsibly.",
+        'profile-disclaimer-btn': "⚠️ Disclaimer: No financial liability.",
+        'profile-agreement-btn': "📝 User Agreement: Standard terms apply.",
+        'profile-copyright-btn': "© Copyright by ZEROX MODS."
+    };
+    for (let id in textAlerts) document.getElementById(id)?.addEventListener('click', () => alert(textAlerts[id]));
+
+    document.getElementById('profile-logout-btn')?.addEventListener('click', () => { if(confirm("Logout?")) location.reload(); });
+
+    const slogans = ["📊 Trade Calm", "✨ Patience prints rewards", "💰 Solid profits", "📈 Smart analysis", "🧠 Trust logic", "🤝 Steady hands", "🚀 Stay disciplined"];
+    let sloganIndex = 0;
+    const sloganEl = document.getElementById('header-slogan');
+    if (sloganEl) setInterval(() => { sloganEl.style.opacity = '0'; setTimeout(() => { sloganIndex = (sloganIndex + 1) % slogans.length; sloganEl.innerText = slogans[sloganIndex]; sloganEl.style.opacity = '1'; }, 300); }, 5000);
+
+    const themeBtn = document.getElementById('profile-theme-btn');
+    const rootEl = document.documentElement;
+    if (localStorage.getItem('bunny_theme') === 'green') rootEl.setAttribute('data-theme', 'green');
+    if (themeBtn) themeBtn.addEventListener('click', () => { if (rootEl.getAttribute('data-theme') === 'green') { rootEl.removeAttribute('data-theme'); localStorage.setItem('bunny_theme', 'purple'); } else { rootEl.setAttribute('data-theme', 'green'); localStorage.setItem('bunny_theme', 'green'); } });
+
+    // Advanced Prediction System
+    const predictionPanel = document.getElementById('prediction-enhancement-panel');
+    const actualResultInput = document.getElementById('actualResultInput');
+    const verifyBtn = document.getElementById('verifyResultBtn');
+    const jackpotBanner = document.getElementById('jackpotBanner');
+    const historyListEl = document.getElementById('historyList');
+    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+    const toastContainerEl = document.getElementById('toastContainer');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const modeBtnsAdv = document.querySelectorAll('.mode-btn');
+
+    let currentPredictionMode = 'random';
+    let lastPredictions = [];
+    let predictionHistory = [];
+
+    function loadPredictionHistory() {
+        const saved = localStorage.getItem('zerox_prediction_history');
+        if (saved) { predictionHistory = JSON.parse(saved); renderHistoryAdv(); }
+    }
+    function savePredictionHistory() { localStorage.setItem('zerox_prediction_history', JSON.stringify(predictionHistory.slice(-10))); renderHistoryAdv(); }
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        toastContainerEl.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(-20px)'; setTimeout(() => toast.remove(), 300); }, 3000);
+    }
+
+    function playSound(type) {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode); gainNode.connect(audioContext.destination);
+            if (type === 'win') { oscillator.frequency.value = 880; gainNode.gain.value = 0.3; oscillator.type = 'sine'; oscillator.start(); gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 1); setTimeout(() => oscillator.stop(), 1000); }
+            else if (type === 'prediction') { oscillator.frequency.value = 440; gainNode.gain.value = 0.2; oscillator.type = 'sine'; oscillator.start(); gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.5); setTimeout(() => oscillator.stop(), 500); }
+        } catch(e) {}
+    }
+
+    function getTrendPrediction() {
+        if (lastPredictions.length < 3) return Math.floor(Math.random() * 10);
+        const avg = lastPredictions.slice(-3).reduce((a,b) => a+b,0)/3;
+        return Math.max(0, Math.min(9, Math.round(avg) + (Math.floor(Math.random()*3)-1)));
+    }
+    let lastRandomPrediction = -1;
+    function getRandomSmartPrediction() {
+        let prediction; do { prediction = Math.floor(Math.random() * 10); } while (prediction === lastRandomPrediction && lastRandomPrediction !== -1);
+        lastRandomPrediction = prediction; return prediction;
+    }
+    function getPatternPrediction() {
+        if (lastPredictions.length < 4) return Math.floor(Math.random() * 10);
+        const lastFour = lastPredictions.slice(-4).join('');
+        for (let i = 0; i < lastPredictions.length - 4; i++) {
+            if (lastPredictions.slice(i, i+4).join('') === lastFour && i+4 < lastPredictions.length) return lastPredictions[i+4];
+        }
+        const avg = lastPredictions.slice(-3).reduce((a,b)=>a+b,0)/3;
+        return Math.min(9, Math.max(0, Math.round(avg)));
+    }
+    function getPrediction() {
+        let prediction;
+        switch(currentPredictionMode) {
+            case 'trend': prediction = getTrendPrediction(); break;
+            case 'pattern': prediction = getPatternPrediction(); break;
+            default: prediction = getRandomSmartPrediction();
+        }
+        playSound('prediction');
+        const pendingCircle = document.getElementById('pending-result');
+        pendingCircle.classList.add('number-animate');
+        setTimeout(() => pendingCircle.classList.remove('number-animate'), 300);
+        return prediction;
+    }
+
+    function showJackpot() {
+        jackpotBanner.style.display = 'flex';
+        playSound('win');
+        const numberCircle = document.getElementById('number-result');
+        numberCircle.style.animation = 'none';
+        numberCircle.offsetHeight;
+        numberCircle.style.animation = 'numberPop 0.5s ease';
+        setTimeout(() => { jackpotBanner.style.display = 'none'; }, 3000);
+    }
+
+    function verifyResult() {
+        const actualValue = parseInt(actualResultInput.value);
+        const predictedValue = parseInt(document.getElementById('number-result').innerText);
+        if (isNaN(actualValue) || actualValue < 0 || actualValue > 9) { showToast('❌ Enter a valid number (0-9)', 'error'); return; }
+        if (isNaN(predictedValue) || predictedValue === 'N') { showToast('⚠️ Select a server first', 'error'); return; }
+        const isWin = actualValue === predictedValue;
+        const historyEntry = { predicted: predictedValue, actual: actualValue, status: isWin ? 'WIN' : 'LOSS', timestamp: Date.now(), mode: currentPredictionMode };
+        predictionHistory.unshift(historyEntry);
+        if (predictionHistory.length > 10) predictionHistory.pop();
+        savePredictionHistory();
+        lastPredictions.push(actualValue);
+        if (lastPredictions.length > 10) lastPredictions.shift();
+        if (isWin) { showToast(`🎉 JACKPOT! Won with ${predictedValue}!`, 'success'); showJackpot(); }
+        else showToast(`💀 Loss! Predicted: ${predictedValue} | Actual: ${actualValue}`, 'error');
+        actualResultInput.value = '';
+    }
+
+    function renderHistoryAdv() {
+        if (!historyListEl) return;
+        if (predictionHistory.length === 0) { historyListEl.innerHTML = '<div class="empty-history">No predictions yet.</div>'; return; }
+        historyListEl.innerHTML = predictionHistory.map(entry => `<div class="history-item ${entry.status === 'WIN' ? 'win' : 'loss'}"><div class="history-prediction"><span>🎯 PRED:</span> ${entry.predicted}</div><div class="history-actual"><span>🎲 ACTUAL:</span> ${entry.actual}</div><div class="history-status ${entry.status === 'WIN' ? 'win' : 'loss'}">${entry.status === 'WIN' ? '🏆 WIN' : '💔 LOSS'}</div><div class="history-mode" style="font-size: 10px; color: #888;">${entry.mode}</div></div>`).join('');
+    }
+
+    function clearHistory() { if (confirm('Clear all history?')) { predictionHistory = []; savePredictionHistory(); showToast('History cleared!', 'success'); } }
+    function initDarkMode() {
+        const savedDarkMode = localStorage.getItem('zerox_dark_mode');
+        if (savedDarkMode === 'enabled') { document.documentElement.setAttribute('data-theme', 'dark'); if (darkModeToggle) darkModeToggle.textContent = '☀️'; }
+        if (darkModeToggle) darkModeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('zerox_dark_mode', 'disabled'); darkModeToggle.textContent = '🌙'; showToast('Light mode', 'success'); }
+            else { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('zerox_dark_mode', 'enabled'); darkModeToggle.textContent = '☀️'; showToast('Dark mode', 'success'); }
+        });
+    }
+
+    const originalFetchWingoPrediction = window.fetchWingoPrediction || fetchWingoPrediction;
+    window.fetchWingoPrediction = async function(newPeriod) {
+        await originalFetchWingoPrediction(newPeriod);
+        if (typeof isServerSelected !== 'undefined' && isServerSelected) {
+            const enhancedPrediction = getPrediction();
+            setTimeout(() => { const numEl = document.getElementById('number-result'); if (numEl) numEl.innerText = enhancedPrediction; const penEl = document.getElementById('pending-result'); if (penEl) penEl.innerText = enhancedPrediction >= 5 ? 'B' : 'S'; }, 100);
+        }
+    };
+
+    modeBtnsAdv.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modeBtnsAdv.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentPredictionMode = btn.getAttribute('data-mode');
+            showToast(`Mode: ${currentPredictionMode.toUpperCase()}`, 'success');
+            if (typeof isServerSelected !== 'undefined' && isServerSelected) {
+                const newPred = getPrediction();
+                const numEl = document.getElementById('number-result');
+                const penEl = document.getElementById('pending-result');
+                if (numEl) numEl.innerText = newPred;
+                if (penEl) penEl.innerText = newPred >= 5 ? 'B' : 'S';
+            }
+        });
+    });
+
+    const statusIndicatorEl = document.getElementById('status-indicator');
+    if (statusIndicatorEl && predictionPanel) {
+        const observer = new MutationObserver(function() {
+            if (typeof isServerSelected !== 'undefined' && isServerSelected && predictionPanel) predictionPanel.style.display = 'block';
+            else if (predictionPanel) predictionPanel.style.display = 'none';
+        });
+        observer.observe(statusIndicatorEl, { childList: true, characterData: true, subtree: true });
+    }
+
+    if (verifyBtn) verifyBtn.addEventListener('click', verifyResult);
+    if (clearHistoryBtn) clearHistoryBtn.addEventListener('click', clearHistory);
+    if (actualResultInput) actualResultInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') verifyResult(); });
+
+    loadPredictionHistory();
+    initDarkMode();
+    console.log('%c✅ ZEROX MODS ADVANCED SYSTEM ACTIVE', 'color: #00ff41; font-size: 14px;');
+</script>
+</body>
+</html>
